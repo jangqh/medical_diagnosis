@@ -8,9 +8,10 @@ import numpy as np
 import re
 import string
 import collections
-from zhou.hanzi import punctuation
-from sklearn.processing import LabelEncoder
-from sklearn.processing import OneHotEncoder
+from zhon.hanzi import punctuation
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
+
 
 def clean_str(s):
     """分词，字符清理，except for SSI
@@ -51,6 +52,7 @@ def load_data_and_labels_chinese(train_data_file, test_data_file):
     # 生成训练数据
     with open(train_data_file, 'r', encoding='utf-8') as f:
         for line in f:
+            pass
 
 
 
