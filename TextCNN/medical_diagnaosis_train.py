@@ -13,6 +13,7 @@ import pickle
 import data_helper
 from tensorflow.contrib import learn
 from text_cnn import TextCNN
+import pdb
 
 ###############################################
 # 参数解析
@@ -26,7 +27,7 @@ tf.flags.DEFINE_string("model", "TextCNN", "选择模型")
 
 # 模型超参数
 tf.flags.DEFINE_integer("embedding_dim", "128", "词向量维度，不只是词向量")
-tf.flags.DEFINE_integer("filter_sizes", "2,3,4", "comma-separated滤波器大小")
+tf.flags.DEFINE_string("filter_sizes", "2,3,4", "comma-separated滤波器大小")
 tf.flags.DEFINE_integer("num_filters", 128, "每种尺寸滤波器的个数")
 tf.flags.DEFINE_float("dropout_keep_prob", 0.5, "dropout probability")
 tf.flags.DEFINE_float("l2_reg_lambda", 0.0, "L2 正则化")
@@ -35,15 +36,16 @@ tf.flags.DEFINE_float("l2_reg_lambda", 0.0, "L2 正则化")
 tf.flags.DEFINE_integer("batch_size", 64, "Batch Size")
 tf.flags.DEFINE_integer("num_epoch", 20000, "训练次数")
 tf.flags.DEFINE_integer("evaluate_every", 100, "多少步后评估模型")
-tf.flags.DEFINE_interger("num_checkpoints", 100, "Num of check to store")
+tf.flags.DEFINE_integer("num_checkpoints", 100, "Num of check to store")
 tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow devices soft device placement")
 tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on devices")
 
 FLAGS = tf.flags.FLAGS
+print("**************************************************")
 print("\nParameters: ")
-for attr, value in sorted(FLAGS.flags_value_dcit().items()):
+for attr, value in sorted(FLAGS.flag_values_dict().items()):
     print("{}={}".format(attr.upper(), value))
-print('''''''''''')
+print("**************************************************")
 
 
 # 加载数据
@@ -52,6 +54,7 @@ print(FLAGS.train_data_file, FLAGS.test_data_file)
 vocabulary, train_data, train_label, test_data, test_label = \
         data.helper.load_data_and_labels_chinese(FLAGS.train_data_file,
                 FLAGS.test_data_file)
+pdb.set_trace()
 shuffle_indices = np.random.permutation(np.arange(len(train_data)))
 train_data = np.array(train_data)
 x_train, y_train = train_data[shuffle_indices], train_label[shuffle_indices]
